@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lyckad inloggning</title>
+</head>
+<body>
+
+    <h1>hej <%=username%></h1><br/>
+
+    <p>ange fullname,password</p></br>
+
+    <form action="/emailName" method="post" >
+        Email <input type="text" name="email"><br/>
+        FullName <input type="text" name="fullname">
+        <input type="submit">
+    </form>
+
+    <form action="/loggaUT">
+        <button type="submit">Logga ut</button>
+    </form>
+</body>
+</html>
