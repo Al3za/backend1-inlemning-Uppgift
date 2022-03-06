@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>profilUser</title>
+    <title>Document</title>
 </head>
 <body>
-    <h1>build your profile</h1>
 
-    <%info.forEach((item)=>{%>
-        <p><%=item.fullname%></p>
-        <p><%=item.email%></p>
-    <%})%>
-    
+    <h1><%=infoName%></h1>
+    <img src="<%=photo%>" height="200px" width="300px" alt="">
+    <p> <%=infoMail%></p>
+     <br/>
+    <form action="/upload" method="post" enctype="multipart/form-data" >
+        Email <input type="text" name="email"><br/>
+        FullName <input type="text" name="fullname">
+        <input type="file" name="image" >
+        <button type="submit">Change profil</button>
+    </form>
 </body>
 </html>

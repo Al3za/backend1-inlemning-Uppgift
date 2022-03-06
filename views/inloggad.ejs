@@ -8,13 +8,12 @@
 </head>
 <body>
 
-    <h1>hej <%=username%></h1><br/>
+    <h1>hej <%=username%> we recomend you to create your profile to let others better know who you are></h1><br/>
 
-    <p>ange fullname,password</p></br>
-
-    <form action="/emailName" method="post" >
+    <form action="/upload" method="post" enctype="multipart/form-data" >
         Email <input type="text" name="email"><br/>
         FullName <input type="text" name="fullname">
+        <input type="file" name="image" >
         <input type="submit">
     </form>
 
