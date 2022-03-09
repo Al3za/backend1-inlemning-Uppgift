@@ -8,6 +8,7 @@ app.use(express.urlencoded({extended:true}));
 const mongoose=require('mongoose');
 mongoose.connect('mongodb://localhost/SignIn');
 const {USERS}=require('./models/users.js');
+const {POSTS}=require('./models/Post.js')
 const passport=require('passport');
 const session=require('express-session');
 const { errors } = require("passport-local-mongoose");
@@ -16,9 +17,12 @@ app.use(express.static('./public'))
 
 passport.use(USERS.createStrategy());
 
+console.log("upload path", path.join(__dirname,'public','uploads'));
+
 const storage=multer.diskStorage({
-  destination:'./public/uploads',
+  destination:path.join(__dirname,'public','uploads'),
   filename: function(req,file,cb){
+    console.log("file upload", file);
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
@@ -38,22 +42,36 @@ passport.deserializeUser(USERS.deserializeUser());
 
 app.get('/',(req,res)=>{
   if(req.user){
-    res.render('inloggad.ejs',{username:req.user.username})
+    res.render('inloggad.ejs',{User:req.user})
   }else{
+    //console.log(new Date())
     res.redirect('/login')
   }
 })
 
-app.post('/upload',upload.single('image'),(req,res,next)=>{
-    const {email,fullname}=req.body;
-   const {file:filename}=req.file; 
+app.get('/changeProfile/:Userid',(req,res)=>{
+  res.render('profile.ejs')
+})  
 
-  res.render('userProfil.ejs',{
-    infoName:req.body.fullname,
-    infoMail:req.body.email,
-    photo:`uploads/${req.file.filename}`
-  })
-  })
+app.post('/changeProfile/:Userid',upload.single('image'), async (req,res)=>{
+  const idUser=req.params.Userid;
+  console.log("FILE", req.file);
+  const fil= req.file;
+  console.log(fil);
+  const {email,fullname}=req.body;
+  const profile= await USERS.updateOne({_id:`${idUser}`},{email:`${email}`,fullname:`${fullname}`,picture:`uploads/${req.file.filename}`});
+  res.redirect('/')
+})
+//,picture:`uploads/${req.file.filename}`
+  app.post('/textruta',async (req,res)=>{
+   
+    const date= await new POSTS({
+      Datum:new Date()
+    });
+
+    await date.save();
+    res.send('new data saved')
+  });
 
 app.get('/login',(req,res)=>{
   res.render('login.ejs')
@@ -79,6 +97,16 @@ app.post('/signin',async (req,res)=>{
   res.redirect('/login')
 })
 
+
 app.listen(PORT, () => {
   console.log(`Started Express server on port ${PORT}`);
 });
+
+//dag 3 m716F#Ux
+ //dag 5 49GB1!CS
+
+ //dag 6 2Kp=EF!G
+
+ //ROL@Z7.4
+ 
+ //?3HYpk3%

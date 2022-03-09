@@ -8,14 +8,13 @@
 </head>
 <body>
 
-    <h1>hej <%=username%> we recomend you to create your profile to let others better know who you are></h1><br/>
+    <h1>hej <%=User.username%> click the link below to build ur profile</h1><br/>
 
-    <form action="/upload" method="post" enctype="multipart/form-data" >
-        Email <input type="text" name="email"><br/>
-        FullName <input type="text" name="fullname">
-        <input type="file" name="image" >
-        <input type="submit">
-    </form>
+    <p><%=User.email%></p>
+    <p><%=User.fullname%></p>
+    <img src="<%=User.picture%>" alt="" height="300px" width="300px" >
+
+    <a href="changeProfile/<%=User._id%>">change your profile</a>
 
     <form action="/loggaUT">
         <button type="submit">Logga ut</button>

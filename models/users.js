@@ -2,9 +2,11 @@ const mongoose=require('mongoose');
 const PassLocMong=require('passport-local-mongoose');
 
 const userSchema= new mongoose.Schema({
-    username:{type:String,required:true}
-    // fullName:{type:String},
-    // E
+    textLocation: {type:mongoose.Schema.Types.ObjectId,ref:'Posts'},
+    username:{type:String,required:true},
+    email:{type:String, default:""},
+    fullname:{type:String,default:""},
+    picture:{type:String,default:""}
 });
 userSchema.plugin(PassLocMong);
 
