@@ -17,12 +17,11 @@ app.use(express.static('./public'))
 
 passport.use(USERS.createStrategy());
 
-console.log("upload path", path.join(__dirname,'public','uploads'));
+
 
 const storage=multer.diskStorage({
   destination:path.join(__dirname,'public','uploads'),
   filename: function(req,file,cb){
-    console.log("file upload", file);
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
@@ -50,19 +49,21 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/changeProfile/:Userid',(req,res)=>{
-  res.render('profile.ejs')
+  res.render('UserProfil.ejs')
 })  
 
 app.post('/changeProfile/:Userid',upload.single('image'), async (req,res)=>{
   const idUser=req.params.Userid;
-  console.log("FILE", req.file);
-  const fil= req.file;
-  console.log(fil);
+  //console.log("FILE", req.file.filename);
+  //const fil= req.file;
+  //console.log(fil);
   const {email,fullname}=req.body;
+  console.log(idUser);
+  console.log(req.body);
   const profile= await USERS.updateOne({_id:`${idUser}`},{email:`${email}`,fullname:`${fullname}`,picture:`uploads/${req.file.filename}`});
   res.redirect('/')
 })
-//,picture:`uploads/${req.file.filename}`
+
   app.post('/textruta',async (req,res)=>{
    
     const date= await new POSTS({

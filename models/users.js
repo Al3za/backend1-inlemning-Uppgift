@@ -6,7 +6,7 @@ const userSchema= new mongoose.Schema({
     username:{type:String,required:true},
     email:{type:String, default:""},
     fullname:{type:String,default:""},
-    picture:{type:String,default:""}
+    picture:{type:String,default:"https://i.stack.imgur.com/34AD2.jpg"}
 });
 userSchema.plugin(PassLocMong);
 

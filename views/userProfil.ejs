@@ -4,28 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>profil</title>
 </head>
 <body>
 
-    <h1><%=infoName%></h1>
-    <img src="<%=photo%>" height="200px" width="300px" alt="">
-    <p> <%=infoMail%></p>
-     <br/>
+    <h1>build your profile</h1>
 
-     <h2><%=infoName%> skriv din inlag i rutan här nere</h2>
-
-     <form action="textRuta" method="post">
-        <textarea name="textarea" cols="30" rows="5" maxlength="140"></textarea>
-        <button type="submit">submit Blog</button>
-     </form>
-
-     <h2>change your profil</h2>
-    <form action="/upload" method="post" enctype="multipart/form-data" >
+    <form  method="post" enctype="multipart/form-data" >
         Email <input type="text" name="email"><br/>
         FullName <input type="text" name="fullname">
         <input type="file" name="image" >
-        <button type="submit">Change profil</button>
+        <button type="submit">update profil</button>
     </form>
+
+     <!-- <form action="textRuta" method="post">
+        <textarea name="textarea" cols="30" rows="5" maxlength="140"></textarea>
+        <button type="submit">submit Blog</button>
+     </form> -->
+
+  
+     
 </body>
 </html>

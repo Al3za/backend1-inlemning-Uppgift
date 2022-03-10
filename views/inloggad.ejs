@@ -8,13 +8,20 @@
 </head>
 <body>
 
-    <h1>hej <%=User.username%> click the link below to build ur profile</h1><br/>
+    <h1>hej <%=User.username%> this is your profile.
+         if u want update it click the link below or just let it be </h1><br/>
 
+    <img src="<%=User.picture%>" alt="bot found" height="300px" width="300px" >     
     <p><%=User.email%></p>
     <p><%=User.fullname%></p>
-    <img src="<%=User.picture%>" alt="" height="300px" width="300px" >
+    
 
-    <a href="changeProfile/<%=User._id%>">change your profile</a>
+    <a href="changeProfile/<%=User._id%>"> update profile</a>
+
+    <form action="textRuta" method="post">
+        <textarea name="textarea" cols="30" rows="5" maxlength="140"></textarea>
+        <button type="submit">submit Blog</button>
+     </form>
 
     <form action="/loggaUT">
         <button type="submit">Logga ut</button>
