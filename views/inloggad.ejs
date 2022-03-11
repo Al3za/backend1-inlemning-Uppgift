@@ -8,21 +8,21 @@
 </head>
 <body>
 
-    <h1>hej <%=User.username%> this is your profile.
-         if u want update it click the link below or just let it be </h1><br/>
+    <h1>hej <%=User.username%> </h1><br/>
+
+
+    <a href="changeProfile/<%=User._id%>"> update profile</a>
+
+    <a href="blog/<%=User._id%>"> write inlägg </a>
+    
+    <a href="SeeBlogs">se all the blogs</a> <br/>
+
+
 
     <img src="<%=User.picture%>" alt="bot found" height="300px" width="300px" >     
     <p><%=User.email%></p>
     <p><%=User.fullname%></p>
     
-
-    <a href="changeProfile/<%=User._id%>"> update profile</a>
-
-    <form action="textRuta" method="post">
-        <textarea name="textarea" cols="30" rows="5" maxlength="140"></textarea>
-        <button type="submit">submit Blog</button>
-     </form>
-
     <form action="/loggaUT">
         <button type="submit">Logga ut</button>
     </form>

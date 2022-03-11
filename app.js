@@ -12,6 +12,7 @@ const {POSTS}=require('./models/Post.js')
 const passport=require('passport');
 const session=require('express-session');
 const { errors } = require("passport-local-mongoose");
+const e = require("express");
 
 app.use(express.static('./public'))
 
@@ -54,9 +55,6 @@ app.get('/changeProfile/:Userid',(req,res)=>{
 
 app.post('/changeProfile/:Userid',upload.single('image'), async (req,res)=>{
   const idUser=req.params.Userid;
-  //console.log("FILE", req.file.filename);
-  //const fil= req.file;
-  //console.log(fil);
   const {email,fullname}=req.body;
   console.log(idUser);
   console.log(req.body);
@@ -64,24 +62,36 @@ app.post('/changeProfile/:Userid',upload.single('image'), async (req,res)=>{
   res.redirect('/')
 })
 
-  app.post('/textruta',async (req,res)=>{
-   
-    const date= await new POSTS({
-      Datum:new Date()
-    });
 
-    await date.save();
-    res.send('new data saved')
-  });
+app.get('/blog/:blogID',(req,res)=>{
+  res.render('blog.ejs') 
+}) 
 
-app.get('/login',(req,res)=>{
-  res.render('login.ejs')
-});
+app.post('/blog/:blogID',async (req,res)=>{
+const blog=req.body.blogs;
+const userID=req.params.blogID;
 
-app.get('/loggaUT',(req,res)=>{
+const posts= await new POSTS({Posts:blog,Datum:new Date()});
+await posts.save();
+
+const seePosts= await POSTS.find({}).sort({Datum:1});
+
+const UsersJoin= await USERS.findOne({_id:userID});
+UsersJoin.textLocation=seePosts;
+await UsersJoin.save(); 
+
+//res.redirect(`/blog/${userID}`)
+res.render('posts.ejs',{users:UsersJoin});
+  }); 
+  
+app.get('/login',(req,res)=>{ 
+  res.render('login.ejs') 
+}); 
+
+app.get('/loggaUT',(req,res)=>{  
   res.redirect('/login')
 });
-
+ 
 app.post('/login',passport.authenticate('local',{
   successRedirect:'/'
 }))
