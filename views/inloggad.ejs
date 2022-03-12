@@ -13,18 +13,19 @@
 
     <a href="changeProfile/<%=User._id%>"> update profile</a>
 
-    <a href="blog/<%=User._id%>"> write inlägg </a>
+
+    <a href="blog/<%=User._id%>">write a blog</a>
     
-    <a href="SeeBlogs">se all the blogs</a> <br/>
+    <a href="SeeBlogs/<%=User._id%>">se all the blogs</a><br/>
 
 
-
-    <img src="<%=User.picture%>" alt="bot found" height="300px" width="300px" >     
+    <img src="<%=User.picture%>" alt="not found" height="300px" width="300px" >     
     <p><%=User.email%></p>
     <p><%=User.fullname%></p>
     
     <form action="/loggaUT">
         <button type="submit">Logga ut</button>
     </form>
+    
 </body>
 </html>

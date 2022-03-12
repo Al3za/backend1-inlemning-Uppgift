@@ -56,35 +56,51 @@ app.get('/changeProfile/:Userid',(req,res)=>{
 app.post('/changeProfile/:Userid',upload.single('image'), async (req,res)=>{
   const idUser=req.params.Userid;
   const {email,fullname}=req.body;
-  console.log(idUser);
-  console.log(req.body);
   const profile= await USERS.updateOne({_id:`${idUser}`},{email:`${email}`,fullname:`${fullname}`,picture:`uploads/${req.file.filename}`});
   res.redirect('/')
-})
+}) 
 
+
+// app.post('/blog',async (req,res)=>{
+//   const blog=req.body.blogs;
+
+//   const posts= await new POSTS({Posts:blog,Datum:new Date()});
+//   await posts.save();
+
+//   res.redirect('/');
+//     }); 
 
 app.get('/blog/:blogID',(req,res)=>{
   res.render('blog.ejs') 
-}) 
+})  
 
-app.post('/blog/:blogID',async (req,res)=>{
-const blog=req.body.blogs;
-const userID=req.params.blogID;
+const arr=[]; 
 
-const posts= await new POSTS({Posts:blog,Datum:new Date()});
-await posts.save();
+ app.post('/blog/:blogID',async (req,res)=>{
+ const blog=req.body.blogs;
+ const userID=req.params.blogID;
 
-const seePosts= await POSTS.find({}).sort({Datum:1});
+ const posts= await new POSTS({Posts:blog,Datum:new Date()});
+ await posts.save();
 
-const UsersJoin= await USERS.findOne({_id:userID});
-UsersJoin.textLocation=seePosts;
-await UsersJoin.save(); 
+   const UsersJoin= await USERS.findOne({_id:userID});
+   UsersJoin.textLocation.splice(0,0,posts.id);
+   await UsersJoin.save();
 
-//res.redirect(`/blog/${userID}`)
-res.render('posts.ejs',{users:UsersJoin});
-  }); 
+ res.redirect(`/blog/${userID}`)
+   });    
+        
+   app.get('/SeeBlogs/:seePosts',async(req,res)=>{
+
+    const seePosts=req.params.seePosts;
+    const Userid=await USERS
+    .findOne({_id:seePosts})
+    .populate('textLocation');
+    console.log(Userid);
+    res.render('seePosts.ejs',{user:Userid})
+   });
   
-app.get('/login',(req,res)=>{ 
+app.get('/login',(req,res)=>{  
   res.render('login.ejs') 
 }); 
 
@@ -94,7 +110,7 @@ app.get('/loggaUT',(req,res)=>{
  
 app.post('/login',passport.authenticate('local',{
   successRedirect:'/'
-}))
+})) 
 
 app.get('/signin',(req,res)=>{
   res.render('signin.ejs')
