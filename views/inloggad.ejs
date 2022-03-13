@@ -6,23 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lyckad inloggning</title>
 </head>
-<body>
+<body style="background-color: bisque;" >
 
-    <h1>hej <%=User.username%> </h1><br/>
-
-
-    <a href="changeProfile/<%=User._id%>"> update profile</a>
-
-    <a href="blog/<%=User._id%>">write a blog</a>
+    <h1 style="color: brown;" >hej <%=User.username%> </h1><br/>
     
-    <a href="SeeBlogs/<%=User._id%>">se blogs</a><br/>
-
-    <a href="SeeAllBlogs">se all the blogs</a><br/>
+        
+            <div style="display: inline;">
+                <a href="changeProfile/<%=User._id%>"> update profile</a>
+                <a href="blog/<%=User._id%>">write a blog</a>
+                <a href="SeeBlogs/<%=User._id%>">ses your blogs</a><br/>
+                <a href="SeeAllBlogs">see everybody blogs</a><br/>
+            </div>
+       
     
+
 
     <img src="<%=User.picture%>" alt="not found" height="300px" width="300px" >     
-    <p><%=User.email%></p>
-    <p><%=User.fullname%></p>
+    <em style="display: block; padding-top: 5px; color: rgb(17, 17, 182) ; "><%=User.email%></em>
+    <p style="font-weight: bold;"><%=User.fullname%></p>
     
     <form action="/loggaUT">
         <button type="submit">Logga ut</button>

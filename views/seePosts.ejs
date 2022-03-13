@@ -9,15 +9,15 @@
 <body>
     <h1>user join</h1>
 
-    <p><%=user.username%><p>
-    <p><%=user.email%></p>
-    <p><%=user.fullname%></p>
+    <p style="color: blue; font-weight: bold;"><%=user.username%><p>
+    <em style="color: rgb(51, 51, 192);" ><%=user.email%></em>
+    <p style="font-size: larger; color: blue; " ><%=user.fullname%></p>
     
     
         <img src="<%=user.picture%>" alt="not found" height="300" width="300">
 
     <p><%user.textLocation.forEach((item)=>{%>
-        <p><%=item.Posts%></p>
+        <p style="background-color: bisque; display: inline; " ><%=item.Posts%></p>
         <p style="color: cadetblue;" ><%=item.Datum%> </p>
    <% }) %> </p>
     

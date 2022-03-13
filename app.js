@@ -42,10 +42,8 @@ passport.deserializeUser(USERS.deserializeUser());
 
 app.get('/',(req,res)=>{
   if(req.user){
-    //console.log(req.user);
     res.render('inloggad.ejs',{User:req.user})
   }else{
-    //console.log(new Date())
     res.redirect('/login')
   }
 })
@@ -55,6 +53,7 @@ app.get('/changeProfile/:Userid',(req,res)=>{
 })  
 
 app.post('/changeProfile/:Userid',upload.single('image'), async (req,res)=>{
+  
   const idUser=req.params.Userid;
   const {email,fullname}=req.body;
   const profile= await USERS.updateOne({_id:`${idUser}`},{email:`${email}`,fullname:`${fullname}`,picture:`/uploads/${req.file.filename}`});
@@ -69,10 +68,9 @@ app.get('/chooseUser',async(req,res)=>{
 
 app.post('/userChoose',(req,res)=>{
   const user=req.body.userOpt;
-  //console.log(user);
   res.redirect('chooseUser');  
 }) 
-
+  
 app.get('/SeeAllBlogs',async (req,res)=>{
 
   const posted= await POSTS.find({});
@@ -80,21 +78,11 @@ app.get('/SeeAllBlogs',async (req,res)=>{
  const join= await USERS.aggregate([{$lookup:{from: 'posts',
  localField: 'textLocation',
  foreignField: '_id',
- as:'spot'}}]);       
-   
- console.log(join);    
- //console.log(posted);        
+ as:'spot'}}]); 
      
- //res.redirect('/');     
  res.render('seeAllBlogs.ejs',{AllBlogs:join})
 })
  
- app.get('/SeeAllUsers',async (req,res)=>{
-   const seeUsers= await USERS.find({});
-   
-   //res.render('seeAllUsers.ejs',{seeUser:seeUsers})
-}) 
-
 
 app.get('/blog/:blogID',(req,res)=>{
   res.render('blog.ejs') 
@@ -122,7 +110,6 @@ app.get('/blog/:blogID',(req,res)=>{
     const Userid=await USERS 
     .findOne({_id:seePosts})
     .populate('textLocation'); 
-    //console.log(Userid)
     res.render('seePosts.ejs',{user:Userid}) 
    });
   
