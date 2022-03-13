@@ -10,8 +10,11 @@
     <h1>user join</h1>
 
     <p><%=user.username%><p>
+    <p><%=user.email%></p>
+    <p><%=user.fullname%></p>
     
-        <img src="<%user.picture%>" alt="not found" height="300" width="300">
+    
+        <img src="<%=user.picture%>" alt="not found" height="300" width="300">
 
     <p><%user.textLocation.forEach((item)=>{%>
         <p><%=item.Posts%></p>

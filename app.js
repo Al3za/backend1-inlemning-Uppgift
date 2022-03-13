@@ -21,8 +21,8 @@ passport.use(USERS.createStrategy());
 
 
 const storage=multer.diskStorage({
-  destination:path.join(__dirname,'public','uploads'),
-  filename: function(req,file,cb){
+  destination:"./public/uploads", 
+  filename: function(req,file,cb){ 
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
@@ -42,6 +42,7 @@ passport.deserializeUser(USERS.deserializeUser());
 
 app.get('/',(req,res)=>{
   if(req.user){
+    //console.log(req.user);
     res.render('inloggad.ejs',{User:req.user})
   }else{
     //console.log(new Date())
@@ -56,19 +57,56 @@ app.get('/changeProfile/:Userid',(req,res)=>{
 app.post('/changeProfile/:Userid',upload.single('image'), async (req,res)=>{
   const idUser=req.params.Userid;
   const {email,fullname}=req.body;
-  const profile= await USERS.updateOne({_id:`${idUser}`},{email:`${email}`,fullname:`${fullname}`,picture:`uploads/${req.file.filename}`});
+  const profile= await USERS.updateOne({_id:`${idUser}`},{email:`${email}`,fullname:`${fullname}`,picture:`/uploads/${req.file.filename}`});
+
   res.redirect('/')
 }) 
 
+app.get('/chooseUser',async(req,res)=>{
+  const chooseUser= await USERS.find({});
+  res.render('chooseUser.ejs',{choose:chooseUser})
+})  
 
-// app.post('/blog',async (req,res)=>{
-//   const blog=req.body.blogs;
+app.post('/userChoose',(req,res)=>{
+  const user=req.body.userOpt;
+  //console.log(user);
+  res.redirect('chooseUser');  
+}) 
 
-//   const posts= await new POSTS({Posts:blog,Datum:new Date()});
-//   await posts.save();
+app.get('/SeeAllBlogs',async (req,res)=>{
+  const seePosts= await POSTS.find({})
+  res.render('seeAllPosts.ejs',{seAll:seePosts})
+})
 
-//   res.redirect('/');
-//     }); 
+//const arr2=[];
+app.get('/SeeAllUsers',async (req,res)=>{
+  const seeUsers= await USERS.find({});
+  const arr2=[];
+  seeUsers.forEach((item)=>{
+    arr2.push(item._id)
+  })
+
+  console.log(arr2)
+  console.log(seeUsers);
+
+  //res.redirect('/')
+  res.render('seeAllUsers.ejs',{seeUser:seeUsers})
+}) 
+
+//  app.post('/chooseUser/:id',async(req,res)=>{
+//    const zes=req.params.id;
+//    const zes1=req.query.choose;
+//    console.log()
+//    const chooseUser= await USERS.find({});
+//  
+//    res.redirect('/')
+//    //res.render('chooseUser.ejs',{choose:chooseUser})   
+//  })
+
+// app.get('/SeeAllBlogs',async (req,res)=>{
+//  const SeeAllBlogs=await POSTS.find({});
+//  res.render('seAllPosts.ejs',{seAll:SeeAllBlogs})
+// })
 
 app.get('/blog/:blogID',(req,res)=>{
   res.render('blog.ejs') 
@@ -77,8 +115,9 @@ app.get('/blog/:blogID',(req,res)=>{
 const arr=[]; 
 
  app.post('/blog/:blogID',async (req,res)=>{
+
  const blog=req.body.blogs;
- const userID=req.params.blogID;
+ const userID=req.params.blogID; 
 
  const posts= await new POSTS({Posts:blog,Datum:new Date()});
  await posts.save();
@@ -93,10 +132,11 @@ const arr=[];
    app.get('/SeeBlogs/:seePosts',async(req,res)=>{
 
     const seePosts=req.params.seePosts;
-    const Userid=await USERS
+
+    const Userid=await USERS 
     .findOne({_id:seePosts})
-    .populate('textLocation');
-    console.log(Userid);
+    .populate('textLocation'); 
+    //console.log(Userid)
     res.render('seePosts.ejs',{user:Userid})
    });
   
@@ -129,11 +169,3 @@ app.listen(PORT, () => {
   console.log(`Started Express server on port ${PORT}`);
 });
 
-//dag 3 m716F#Ux
- //dag 5 49GB1!CS
-
- //dag 6 2Kp=EF!G
-
- //ROL@Z7.4
- 
- //?3HYpk3%
