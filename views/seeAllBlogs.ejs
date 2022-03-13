@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>seePosts</title>
+</head>
+<body>
+    <h1>see all posts</h1>
+
+    <source>
+
+    
+
+    <%AllBlogs.forEach((item)=>{%>
+        <%=item._id%>
+        <h1><%=item.username%></h1>
+        <img src="<%=item.picture%>" alt="not found" height="200" width="200"><br/>
+        <a href="SeeBlogs/<%=item._id%>"><%=item.email%></a>
+        <p><%item.spot.forEach((ite)=>{%>
+            <p style="background-color: beige; display: inline" ><%=ite.Posts%> </p>
+            <p style="color: rgb(44, 127, 179);" ><%=ite.Datum%></p>
+        <% }) %></p>
+    <%})%>
+    
+</body>
+</html>

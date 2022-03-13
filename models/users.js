@@ -13,3 +13,12 @@ userSchema.plugin(PassLocMong);
 const USERS=mongoose.model('user',userSchema);
 
 exports.USERS=USERS;
+
+//wP!Q$^2*
+
+//{
+//     from: 'posts',
+//     localField: 'textLocation',
+//     foreignField: '_id',
+//     as: 'string'
+//   }
